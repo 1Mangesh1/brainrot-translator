@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brainrot ↔ English Translator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Brainrot ↔ English Translator</h1>
+        <p>
+          Convert between standard English and Gen Z "brainrot" internet slang
+        </p>
+      </header>
+
+      <main>
+        <div class="translation-box">
+          <div class="input-area">
+            <label for="inputText">Enter text to translate:</label>
+            <textarea
+              id="inputText"
+              placeholder="Type your text here..."
+            ></textarea>
+          </div>
+
+          <div class="controls">
+            <button id="toEnglishBtn">⟵ To English</button>
+            <button id="toBrainrotBtn">To Brainrot ⟶</button>
+          </div>
+
+          <div class="output-area">
+            <label for="outputText">Translation:</label>
+            <textarea id="outputText" readonly></textarea>
+          </div>
+        </div>
+
+        <div class="status-message" id="statusMessage"></div>
+      </main>
+
+      <footer>
+        <p>
+          Powered by Gemini API |
+          <a
+            href="https://github.com/1Mangesh1/brainrot-translator"
+            target="_blank"
+            >GitHub</a
+          >
+        </p>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
