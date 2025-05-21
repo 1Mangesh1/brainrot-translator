@@ -16,6 +16,11 @@ A collection of fun language tools powered by Gemini AI, with a clean and simple
 - Transform insults into passive-aggressive compliments
 - Keep the subtext while making it sound positive on the surface
 
+### 4. Polite but Brutal: Bad Review Generator
+- Generate "bad" reviews that aren't aggressively mean — just awkwardly honest, painfully passive-aggressive, or darkly polite.
+- Choose from various styles like Passive-Aggressive, Overly Polite, Fake Enthusiasm, Existential Crisis, Haiku Mode, or Corporate Reviewer.
+- Optionally specify a subject (e.g., product, app) and underlying emotion (e.g., frustration, confusion).
+
 ## Features
 
 - Simple, responsive UI with warm beige colors
@@ -61,6 +66,7 @@ A collection of fun language tools powered by Gemini AI, with a clean and simple
    - **Brainrot Translator**: Convert between standard English and Gen Z slang
    - **Corporate BS Generator**: Create buzzword-filled corporate phrases
    - **Insult-to-Compliment**: Transform insults into passive-aggressive compliments
+   - **Bad Review Generator**: Craft hilariously polite but brutal bad reviews
 
 ## API Endpoints
 
@@ -92,11 +98,28 @@ You can also use the API directly:
   - Converts an insult into a passive-aggressive compliment
   - Returns: `{ "insult": "You're lazy", "compliment": "..." }`
 
+### Polite but Brutal: Bad Review Generator
+
+- GET `/api/bad-review`
+  - Generates a random polite but brutal bad review.
+  - Returns: `{ "review": "..." }`
+- GET `/api/bad-review?style=Passive-Aggressive&subject=app&emotion=frustration`
+  - Generates a review with specified style, subject, and emotion.
+  - Returns: `{ "review": "...", "style": "Passive-Aggressive", "subject": "app", "emotion": "frustration" }`
+
 ## Examples
 
 ### Insult-to-Compliment Examples:
 - "You're dumb" → "You have such a unique way of thinking—like nobody else would ever think that."
 - "Your cooking is terrible" → "Your adventurous approach to flavors is certainly memorable!"
+
+### Polite but Brutal: Bad Review Generator Examples:
+- **Style: Passive-Aggressive** → "Wow. Just wow. You really committed to making this the worst possible user experience. Inspiring, really."
+- **Style: Overly Polite** → "While I appreciate the bold attempt, I now have trust issues. Thank you for the character development."
+- **Style: Haiku Mode** (for a crashed app) →
+  Crashed once, then again
+  Took my hopes and dreams with it
+  Still gave four stars
 
 ## Technologies Used
 

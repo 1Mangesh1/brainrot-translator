@@ -304,6 +304,102 @@ app.get("/api/insult-to-compliment", async (req, res) => {
   }
 });
 
+// Polite but Brutal: Bad Review Generator API endpoint
+app.get("/api/bad-review", async (req, res) => {
+  const { style, subject, emotion } = req.query;
+
+  let prompt = "Generate a polite but brutal bad review.";
+
+  if (style) {
+    prompt += ` The style should be ${style}.`;
+  }
+  if (subject) {
+    prompt += ` The review is for a ${subject}.`;
+  }
+  if (emotion) {
+    prompt += ` The underlying emotion should be ${emotion}.`;
+  }
+
+  prompt +=
+    " The review should be awkwardly honest, painfully passive-aggressive, or darkly polite, not aggressively mean. Return ONLY the generated review text without any explanations, titles, or additional context.";
+
+  // Add specific style instructions
+  if (style === "Passive-Aggressive") {
+    prompt +=
+      " For example: 'Wow. Just wow. You really committed to making this the worst possible user experience. Inspiring, really.'";
+  } else if (style === "Overly Polite") {
+    prompt +=
+      " For example: 'While I appreciate the bold attempt, I now have trust issues. Thank you for the character development.'";
+  } else if (style === "Fake Enthusiasm") {
+    prompt +=
+      " For example: 'Best app ever! If your goal is to scream into a pillow after every click. 10/10 for emotional growth.'";
+  } else if (style === "Existential Crisis") {
+    prompt +=
+      " For example: 'Tried this at 2am. Now I'm questioning my life choices and the state of modern UX design.'";
+  } else if (style === "Haiku Mode") {
+    prompt = `Generate a polite but brutal bad review in the form of a haiku (5-7-5 syllables).`;
+    if (subject) prompt += ` The review is for a ${subject}.`;
+    if (emotion) prompt += ` The emotion is ${emotion}.`;
+    prompt +=
+      " Return ONLY the haiku. For example:\nCrashed once, then again\nTook my hopes and dreams with it\nStill gave four stars";
+  } else if (style === "Corporate Reviewer") {
+    prompt +=
+      " For example: 'From a business standpoint, this is... a choice. ROI is negative, but the audacity is priceless.'";
+  }
+
+  try {
+    console.log(
+      `Sending bad-review request to Gemini API with style: ${style}, subject: ${subject}, emotion: ${emotion}`
+    );
+
+    const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [
+              {
+                text: prompt,
+              },
+            ],
+          },
+        ],
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Gemini API HTTP error ${response.status}:`, errorText);
+      return res.status(response.status).json({
+        error: `API returned ${response.status}`,
+        details: errorText,
+      });
+    }
+
+    const data = await response.json();
+
+    try {
+      const review = extractGeminiResponseText(data);
+
+      return res.json({
+        review: review,
+        style: style || null,
+        subject: subject || null,
+        emotion: emotion || null,
+      });
+    } catch (extractError) {
+      console.error("Error extracting review:", extractError.message);
+      return res.status(500).json({ error: extractError.message });
+    }
+  } catch (error) {
+    console.error("Error with Gemini API:", error);
+    return res
+      .status(500)
+      .json({ error: "Failed to generate bad review", details: error.message });
+  }
+});
+
 // Serve the HTML pages
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
@@ -315,6 +411,10 @@ app.get("/corporate-bs", (req, res) => {
 
 app.get("/insult-to-compliment", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "insult-to-compliment.html"));
+});
+
+app.get("/bad-review", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "bad-review.html"));
 });
 
 // Debug route to see Gemini API response structure

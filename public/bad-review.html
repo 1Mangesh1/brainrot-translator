@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Language Tools - Bad Review Generator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Polite but Brutal: Bad Review Generator</h1>
+        <p>
+          Generate awkwardly honest, passive-aggressive, or darkly polite bad
+          reviews.
+        </p>
+        <nav class="tool-nav">
+          <a href="/">Brainrot Translator</a>
+          <a href="/corporate-bs">Corporate BS Generator</a>
+          <a href="/insult-to-compliment">Insult-to-Compliment</a>
+          <a href="/bad-review" class="active">Bad Review Generator</a>
+        </nav>
+      </header>
+
+      <main>
+        <div class="generator-box">
+          <div class="options-area">
+            <label for="reviewStyle">Review Style:</label>
+            <select id="reviewStyle">
+              <option value="" selected>Any (Default)</option>
+              <option value="Passive-Aggressive">Passive-Aggressive</option>
+              <option value="Overly Polite">Overly Polite</option>
+              <option value="Fake Enthusiasm">Fake Enthusiasm</option>
+              <option value="Existential Crisis">Existential Crisis</option>
+              <option value="Haiku Mode">Haiku Mode</option>
+              <option value="Corporate Reviewer">Corporate Reviewer</option>
+            </select>
+
+            <label for="reviewSubject">Subject (optional):</label>
+            <input
+              type="text"
+              id="reviewSubject"
+              placeholder="e.g., product, app, service, restaurant"
+            />
+
+            <label for="reviewEmotion">Underlying Emotion (optional):</label>
+            <input
+              type="text"
+              id="reviewEmotion"
+              placeholder="e.g., frustration, confusion, disappointment"
+            />
+          </div>
+
+          <div class="controls-center">
+            <button id="generateBtn">Generate Review</button>
+          </div>
+
+          <div class="output-area full-width">
+            <label for="outputText">Generated Bad Review:</label>
+            <textarea
+              id="outputText"
+              readonly
+              placeholder="Your brutally polite review will appear here..."
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="status-message" id="statusMessage"></div>
+
+        <div class="examples">
+          <h3>Style Examples:</h3>
+          <ul>
+            <li>
+              <strong>Passive-Aggressive:</strong> "Wow. Just wow. You really
+              committed to making this the worst possible user experience.
+              Inspiring, really."
+            </li>
+            <li>
+              <strong>Overly Polite:</strong> "While I appreciate the bold
+              attempt, I now have trust issues. Thank you for the character
+              development."
+            </li>
+            <li>
+              <strong>Fake Enthusiasm:</strong> "Best app ever! If your goal is
+              to scream into a pillow after every click. 10/10 for emotional
+              growth."
+            </li>
+            <li>
+              <strong>Existential Crisis:</strong> "Tried this at 2am. Now I'm
+              questioning my life choices and the state of modern UX design."
+            </li>
+            <li>
+              <strong>Haiku Mode:</strong><br />Crashed once, then again<br />Took
+              my hopes and dreams with it<br />Still gave four stars
+            </li>
+            <li>
+              <strong>Corporate Reviewer:</strong> "From a business standpoint,
+              this is... a choice. ROI is negative, but the audacity is
+              priceless."
+            </li>
+          </ul>
+        </div>
+      </main>
+
+      <footer>
+        <p>Built by ✨delusion✨ and ganne ka juice 🥤</p>
+        <p>
+          Powered by Gemini API |
+          <a
+            href="https://github.com/1Mangesh1/brainrot-translator"
+            target="_blank"
+            >GitHub</a
+          >
+        </p>
+      </footer>
+    </div>
+
+    <script src="bad-review.js"></script>
+  </body>
+</html>

@@ -221,3 +221,65 @@ footer a:hover {
   left: 0;
   color: var(--color-accent);
 }
+
+/* Generator Box Layout for Bad Review Page */
+.generator-box {
+  display: grid;
+  grid-template-areas:
+    "options"
+    "controls"
+    "output";
+  gap: 25px;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 30px;
+}
+
+.options-area {
+  grid-area: options;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.controls-center {
+  grid-area: controls;
+  display: flex;
+  justify-content: center; /* Center the button */
+}
+
+.controls-center button {
+  width: auto; /* Allow button to size based on content */
+  min-width: 200px; /* Give it a decent minimum width */
+}
+
+.output-area.full-width {
+  grid-area: output;
+}
+
+/* Style for select and input fields */
+select,
+input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  background-color: #fffdf9;
+  color: var(--color-text);
+  transition: border-color 0.3s;
+  box-sizing: border-box; /* Ensure padding doesn't expand width */
+}
+
+select:focus,
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+/* Ensure textareas in this new layout also get full width */
+.generator-box .output-area textarea {
+  height: 180px; /* Slightly taller for reviews */
+}
