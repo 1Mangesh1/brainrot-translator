@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Language Tools</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Corporate BS Generator</h1>
+        <p>Generate professional-sounding corporate buzzword phrases</p>
+        <nav class="tool-nav">
+          <a href="/">Brainrot Translator</a>
+          <a href="/corporate-bs" class="active">Corporate BS Generator</a>
+          <a href="/insult-to-compliment">Insult-to-Compliment</a>
+        </nav>
+      </header>
+
+      <main>
+        <div class="translation-box">
+          <div class="input-area">
+            <label for="keywordsText">Keywords (optional):</label>
+            <textarea
+              id="keywordsText"
+              placeholder="Enter keywords to include in the phrase, separated by commas..."
+            ></textarea>
+          </div>
+
+          <div class="controls">
+            <button id="generateBtn">Generate Corporate BS</button>
+          </div>
+
+          <div class="output-area">
+            <label for="outputText">Corporate Phrase:</label>
+            <textarea id="outputText" readonly></textarea>
+          </div>
+        </div>
+
+        <div class="status-message" id="statusMessage"></div>
+
+        <div class="examples">
+          <h3>Examples:</h3>
+          <ul>
+            <li>
+              <strong>No Keywords:</strong> "We need to synergize our core
+              competencies to streamline proactive best practices and maximize
+              stakeholder engagement for a win-win solution."
+            </li>
+            <li>
+              <strong>Keywords (synergy, blockchain):</strong> "By leveraging
+              synergistic blockchain paradigms, we can co-create impactful
+              thought leadership and revolutionize the future of decentralized
+              innovation."
+            </li>
+            <li>
+              <strong>Keywords (agile, optimize, cloud):</strong> "Our agile
+              framework will optimize cloud-first architectures, empowering us
+              to dynamically scale holistic value propositions across the
+              enterprise."
+            </li>
+          </ul>
+        </div>
+      </main>
+
+      <footer>
+        <p>
+          Powered by Gemini API |
+          <a
+            href="https://github.com/1Mangesh1/brainrot-translator"
+            target="_blank"
+            >GitHub</a
+          >
+        </p>
+      </footer>
+    </div>
+
+    <script src="corporate-bs.js"></script>
+  </body>
+</html>

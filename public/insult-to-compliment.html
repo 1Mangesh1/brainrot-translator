@@ -9,34 +9,33 @@
   <body>
     <div class="container">
       <header>
-        <h1>Brainrot ↔ English Translator</h1>
-        <p>
-          Convert between standard English and Gen Z "brainrot" internet slang
-        </p>
+        <h1>Insult-to-Compliment Converter</h1>
+        <p>Convert insults into passive-aggressive compliments</p>
         <nav class="tool-nav">
-          <a href="/" class="active">Brainrot Translator</a>
+          <a href="/">Brainrot Translator</a>
           <a href="/corporate-bs">Corporate BS Generator</a>
-          <a href="/insult-to-compliment">Insult-to-Compliment</a>
+          <a href="/insult-to-compliment" class="active"
+            >Insult-to-Compliment</a
+          >
         </nav>
       </header>
 
       <main>
         <div class="translation-box">
           <div class="input-area">
-            <label for="inputText">Enter text to translate:</label>
+            <label for="inputText">Enter an insult:</label>
             <textarea
               id="inputText"
-              placeholder="Type your text here..."
+              placeholder="Type an insult here..."
             ></textarea>
           </div>
 
           <div class="controls">
-            <button id="toEnglishBtn">← To English</button>
-            <button id="toBrainrotBtn">To Brainrot →</button>
+            <button id="convertBtn">Convert to Compliment</button>
           </div>
 
           <div class="output-area">
-            <label for="outputText">Translation:</label>
+            <label for="outputText">Passive-Aggressive Compliment:</label>
             <textarea id="outputText" readonly></textarea>
           </div>
         </div>
@@ -47,17 +46,14 @@
           <h3>Examples:</h3>
           <ul>
             <li>
-              <strong>English:</strong> "Hello, how are you?" →
-              <strong>Brainrot:</strong> "Yo, wassup, G? You good or nah?"
+              <strong>Insult:</strong> "You're dumb" →
+              <strong>Compliment:</strong> "You have such a unique way of
+              thinking—like nobody else would ever think that."
             </li>
             <li>
-              <strong>Brainrot:</strong> "No cap, that's kinda sus, fr fr." →
-              <strong>English:</strong> "Honestly, that's a bit suspicious, for
-              real."
-            </li>
-            <li>
-              <strong>English:</strong> "I'm going to eat food." →
-              <strong>Brainrot:</strong> "Finna grub, no kizzy."
+              <strong>Insult:</strong> "Your cooking is terrible" →
+              <strong>Compliment:</strong> "Your adventurous approach to flavors
+              is certainly memorable!"
             </li>
           </ul>
         </div>
@@ -75,6 +71,6 @@
       </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script src="insult-to-compliment.js"></script>
   </body>
 </html>

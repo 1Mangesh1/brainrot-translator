@@ -74,7 +74,7 @@ const extractGeminiResponseText = (data) => {
   return rawText;
 };
 
-// API Endpoints
+// Brainrot Translator API Endpoints
 app.get("/api/to-brainrot", async (req, res) => {
   const { text } = req.query;
 
@@ -93,7 +93,7 @@ app.get("/api/to-brainrot", async (req, res) => {
           {
             parts: [
               {
-                text: `Translate this English text to Gen Z brainrot slang. Return ONLY the translated text without explanations, markdown formatting, or additional context. Here's the text: "${text}"`,
+                text: `Translate the following English text into authentic-sounding Gen Z 'brainrot' slang. The translation should be cringey, over-the-top, and use niche internet slang and emojis where appropriate. Aim for a tone that's both ironic and terminally online. Return ONLY the translated slang. Original text: "${text}"`,
               },
             ],
           },
@@ -149,7 +149,7 @@ app.get("/api/to-english", async (req, res) => {
           {
             parts: [
               {
-                text: `Translate this Gen Z brainrot slang to clear standard English. Return ONLY the translated text without explanations, markdown formatting, or additional context. Here's the text: "${text}"`,
+                text: `Translate the following Gen Z 'brainrot' slang into clear, standard English. Explain any niche terms or emojis if necessary for clarity, but prioritize a concise and natural-sounding English translation. Return ONLY the translated English. Original slang: "${text}"`,
               },
             ],
           },
@@ -187,9 +187,134 @@ app.get("/api/to-english", async (req, res) => {
   }
 });
 
-// Serve the HTML page
+// Corporate BS Generator API endpoint
+app.get("/api/corporate-bs", async (req, res) => {
+  const { keywords } = req.query;
+  const prompt = keywords
+    ? `Generate a highly realistic and slightly absurd corporate buzzword phrase that incorporates these specific keywords: ${keywords}. The phrase should sound like it came from a marketing meeting trying too hard. Return ONLY the generated phrase, nothing else.`
+    : "Generate a highly realistic and slightly absurd corporate buzzword phrase, packed with impressive-sounding but ultimately meaningless business jargon. It should sound like something a CEO would say in a confusing all-hands meeting. Return ONLY the generated phrase, nothing else.";
+
+  try {
+    console.log("Sending corporate-bs request to Gemini API");
+
+    const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [
+              {
+                text: prompt,
+              },
+            ],
+          },
+        ],
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Gemini API HTTP error ${response.status}:`, errorText);
+      return res.status(response.status).json({
+        error: `API returned ${response.status}`,
+        details: errorText,
+      });
+    }
+
+    const data = await response.json();
+
+    try {
+      const corporatePhrase = extractGeminiResponseText(data);
+
+      return res.json({
+        corporatePhrase: corporatePhrase,
+        keywords: keywords || null,
+      });
+    } catch (extractError) {
+      console.error("Error extracting corporate BS:", extractError.message);
+      return res.status(500).json({ error: extractError.message });
+    }
+  } catch (error) {
+    console.error("Error with Gemini API:", error);
+    return res.status(500).json({
+      error: "Failed to generate corporate BS",
+      details: error.message,
+    });
+  }
+});
+
+// Insult-to-Compliment Converter API endpoint
+app.get("/api/insult-to-compliment", async (req, res) => {
+  const { text } = req.query;
+
+  if (!text) {
+    return res.status(400).json({ error: "Missing text parameter" });
+  }
+
+  try {
+    console.log(
+      "Sending insult-to-compliment request to Gemini API for text:",
+      text
+    );
+
+    const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [
+              {
+                text: `Convert the following insult into a cuttingly passive-aggressive compliment. The compliment should sound superficially polite or even positive, but subtly retain the original insult's sting. It needs to be clever and make the recipient question if it was an insult or not. Return ONLY the passive-aggressive compliment. Original insult: "${text}"`,
+              },
+            ],
+          },
+        ],
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Gemini API HTTP error ${response.status}:`, errorText);
+      return res.status(response.status).json({
+        error: `API returned ${response.status}`,
+        details: errorText,
+      });
+    }
+
+    const data = await response.json();
+
+    try {
+      const compliment = extractGeminiResponseText(data);
+
+      return res.json({
+        insult: text,
+        compliment: compliment,
+      });
+    } catch (extractError) {
+      console.error("Error extracting compliment:", extractError.message);
+      return res.status(500).json({ error: extractError.message });
+    }
+  } catch (error) {
+    console.error("Error with Gemini API:", error);
+    return res
+      .status(500)
+      .json({ error: "Failed to convert insult", details: error.message });
+  }
+});
+
+// Serve the HTML pages
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+app.get("/corporate-bs", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "corporate-bs.html"));
+});
+
+app.get("/insult-to-compliment", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "insult-to-compliment.html"));
 });
 
 // Debug route to see Gemini API response structure
