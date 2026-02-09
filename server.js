@@ -400,6 +400,118 @@ app.get("/api/bad-review", async (req, res) => {
   }
 });
 
+// UwUify translator API endpoint
+app.get("/api/uwuify", async (req, res) => {
+  const { text } = req.query;
+
+  if (!text) {
+    return res.status(400).json({ error: "Missing text parameter" });
+  }
+
+  try {
+    console.log("Sending uwuify request to Gemini API for text:", text);
+
+    const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [
+              {
+                text: `Translate the following text into 'uwu' speak. Make it sound extremely cute and 'cutesy,' using common uwu mannerisms like "sowwy," "pwease," adding stuttering (e.g., "h-hewwo"), and replacing 'l' and 'r' with 'w.' End with a cute kaomoji like (´｡• ᵕ •｡\`). Return ONLY the translated text. Original text: "${text}"`,
+              },
+            ],
+          },
+        ],
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Gemini API HTTP error ${response.status}:`, errorText);
+      return res.status(response.status).json({
+        error: `API returned ${response.status}`,
+        details: errorText,
+      });
+    }
+
+    const data = await response.json();
+
+    try {
+      const uwuText = extractGeminiResponseText(data);
+
+      return res.json({
+        original: text,
+        uwu: uwuText,
+      });
+    } catch (extractError) {
+      console.error("Error extracting uwu text:", extractError.message);
+      return res.status(500).json({ error: extractError.message });
+    }
+  } catch (error) {
+    console.error("Error with Gemini API:", error);
+    return res
+      .status(500)
+      .json({ error: "Failed to uwuify text", details: error.message });
+  }
+});
+
+// Shakespearean Insult Generator API endpoint
+app.get("/api/shakespearean-insult", async (req, res) => {
+  const { topic } = req.query;
+  const prompt = topic
+    ? `Generate a creative, funny, and cutting insult in the style of William Shakespeare about the following topic: "${topic}". The insult should use archaic English and be dramatic. Return ONLY the insult.`
+    : "Generate a creative, funny, and cutting insult in the style of William Shakespeare. The insult should use archaic English and be dramatic. Return ONLY the insult.";
+
+  try {
+    console.log(`Sending shakespearean-insult request to Gemini API for topic: ${topic}`);
+
+    const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [
+              {
+                text: prompt,
+              },
+            ],
+          },
+        ],
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Gemini API HTTP error ${response.status}:`, errorText);
+      return res.status(response.status).json({
+        error: `API returned ${response.status}`,
+        details: errorText,
+      });
+    }
+
+    const data = await response.json();
+
+    try {
+      const insult = extractGeminiResponseText(data);
+      return res.json({
+        insult: insult,
+        topic: topic || null,
+      });
+    } catch (extractError) {
+      console.error("Error extracting insult:", extractError.message);
+      return res.status(500).json({ error: extractError.message });
+    }
+  } catch (error) {
+    console.error("Error with Gemini API:", error);
+    return res
+      .status(500)
+      .json({ error: "Failed to generate insult", details: error.message });
+  }
+});
+
 // Serve the HTML pages
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
@@ -415,6 +527,14 @@ app.get("/insult-to-compliment", (req, res) => {
 
 app.get("/bad-review", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "bad-review.html"));
+});
+
+app.get("/uwuify", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "uwuify.html"));
+});
+
+app.get("/shakespearean-insult", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "shakespearean-insult.html"));
 });
 
 // Debug route to see Gemini API response structure

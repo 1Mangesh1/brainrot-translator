@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shakespearean Insult Generator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Shakespearean Insult Generator</h1>
+        <p>Hark! Generate an insult worthy of the Bard himself.</p>
+        <nav class="tool-nav">
+          <a href="/">Brainrot Translator</a>
+          <a href="/corporate-bs">Corporate BS Generator</a>
+          <a href="/insult-to-compliment">Insult-to-Compliment</a>
+          <a href="/bad-review">Bad Review Generator</a>
+          <a href="/uwuify">UwUify Translator</a>
+          <a href="/shakespearean-insult" class="active">Shakespearean Insult Generator</a>
+        </nav>
+      </header>
+
+      <main>
+        <div class="generator-box">
+          <div class="options-area">
+            <label for="topicInput">Enter a topic for the insult (optional):</label>
+            <input
+              type="text"
+              id="topicInput"
+              placeholder="e.g., 'a tardy fool', 'unruly hair'..."
+            />
+          </div>
+
+          <div class="controls-center">
+            <button id="generateBtn">Generate Insult!</button>
+          </div>
+
+          <div class="output-area full-width">
+            <label for="outputText">Hark, thine generated insult:</label>
+            <textarea id="outputText" readonly></textarea>
+          </div>
+        </div>
+
+        <div class="status-message" id="statusMessage"></div>
+      </main>
+
+      <footer>
+        <p>Crafted with a quill and a bit of fury 📜</p>
+        <p>
+          Powered by Gemini API |
+          <a
+            href="https://github.com/1Mangesh1/brainrot-translator"
+            target="_blank"
+            >GitHub</a
+          >
+        </p>
+      </footer>
+    </div>
+
+    <script src="shakespearean-insult.js"></script>
+  </body>
+</html>
